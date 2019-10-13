@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { xcode } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { StateInterface } from "../../../../interfaces/stateInterface";
 
 class Details extends Component<any> {
   changeToHistory = () => {
@@ -73,7 +74,7 @@ import CodeView from "./code-view";
 </div>
  */
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: StateInterface) => ({
   active_tab: state.active_tab,
   file_details: state.file_details
 });

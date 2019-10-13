@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { StateInterface } from "../../../interfaces/stateInterface";
 
 //TODO добавить время последнего изменения к веткам в дропе
 
@@ -34,7 +35,7 @@ class RepoName extends Component<any> {
     );
   }
 }
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: StateInterface) => ({
   branches: state.branches,
   repo_name: state.repository
 });

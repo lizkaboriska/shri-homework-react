@@ -1,24 +1,20 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-            "sourceMap": true,
-            "jsx": "preserve",
-            "esModuleInterop": true,
-            "noImplicitAny": true,
-            "strictNullChecks": true,
-            "lib": [
-                "es6",
-                "dom",
-                "dom.iterable"
-            ],
-            "allowJs": true,
-            "skipLibCheck": true,
-            "strict": true,
-            "forceConsistentCasingInFileNames": true,
-            "moduleResolution": "node",
-            "resolveJsonModule": true,
-            "isolatedModules": true,
-            "noEmit": true,
-            "target": "es5"
-    }
+  "compilerOptions": {
+    "module": "commonjs",
+    "sourceMap": true,
+    "jsx": "preserve",
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "lib": ["es6", "dom", "dom.iterable"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "target": "es6"
+  }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { StateInterface } from "../../../../interfaces/stateInterface";
 
 class History extends Component<any> {
   changeToDetails = () => {
@@ -228,7 +229,7 @@ class History extends Component<any> {
   }
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: StateInterface) => ({
   active_tab: state.active_tab
 });
 

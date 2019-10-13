@@ -1,3 +1,5 @@
+import { FileState } from "../interfaces/stateInterface";
+
 const hardcodedFiles: any = [];
 //     {
 //         id: 1,

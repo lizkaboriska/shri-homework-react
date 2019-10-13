@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
+import { StateInterface } from "../../../interfaces/stateInterface";
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo("en-US");
@@ -36,7 +37,7 @@ class LastCommitInfo extends Component<any> {
     );
   }
 }
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: StateInterface) => ({
   sha: state.last_commit.sha,
   date: state.last_commit.date,
   author: state.last_commit.author,

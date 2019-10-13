@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { BACKEND_URI, refreshFilesList } from "../../../../../index";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
+import { StateInterface } from "../../../../../interfaces/stateInterface";
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo("en-US");
@@ -100,7 +101,7 @@ class File extends Component<any> {
     );
   }
 }
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: StateInterface) => ({
   state: state
 });
 export default connect(mapStateToProps)(File);

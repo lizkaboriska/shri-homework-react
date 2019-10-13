@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { StateInterface } from "../../../../interfaces/stateInterface";
 
 class Search extends Component<any> {
   search = (event: any) => {
@@ -35,7 +36,7 @@ class Search extends Component<any> {
   }
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: StateInterface) => ({
   active_tab: state.active_tab
 });
 export default connect(mapStateToProps)(Search);

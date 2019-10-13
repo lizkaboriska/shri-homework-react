@@ -1,7 +1,9 @@
 import initialState from "../state/initialState";
+import {StateInterface, Branch} from "../interfaces/stateInterface";
 
-function reducer(state: any = initialState, action: any) {
-  let new_state;
+
+function reducer(state: StateInterface = initialState, action: any) {
+  let new_state: StateInterface;
   switch (action.type) {
     case "CHANGE_TO_FILES":
       new_state = { ...state };
@@ -40,7 +42,7 @@ function reducer(state: any = initialState, action: any) {
         active_tab: "files"
       };
     case "SEARCH_FILES":
-      new_state = { ...state, toFiles: true };
+      new_state = { ...state };
       let files_pattern = action.content;
       new_state.files = state.all_files.filter(
         (object: { name: { includes: (arg0: any) => void } }) =>
@@ -48,10 +50,10 @@ function reducer(state: any = initialState, action: any) {
       );
       return new_state;
     case "SEARCH_BRANCHES":
-      new_state = { ...state, toFiles: true };
+      new_state = { ...state };
       let branches_pattern = action.content;
       new_state.branches = state.all_branches.filter(
-        (object: { name: { includes: (arg0: any) => void } }) =>
+        (object: Branch) =>
           object.name.includes(branches_pattern)
       );
       return new_state;

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { refreshFilesList } from "../../../index";
+import { StateInterface } from "../../../interfaces/stateInterface";
 
 class Crumbs extends Component<any> {
   open = (breadcrumbs_idx: any) => {
@@ -50,7 +51,7 @@ class Crumbs extends Component<any> {
   }
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: StateInterface) => ({
   repository: state.repository,
   breadcrumbs: state.breadcrumbs
 });

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { StateInterface } from "../../../../../interfaces/stateInterface";
 
 class Branch extends Component<any> {
   render() {
@@ -19,7 +20,7 @@ class Branch extends Component<any> {
   }
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: StateInterface) => ({
   files: state.files
 });
 

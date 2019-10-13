@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import File from "./file";
 import { connect } from "react-redux";
+import { StateInterface } from "../../../../../interfaces/stateInterface";
 
 class FilesTable extends Component<any> {
   changeToBranches = () => {
@@ -45,7 +46,7 @@ class FilesTable extends Component<any> {
     }
   }
 }
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: StateInterface) => ({
   files: state.files,
   active_tab: state.active_tab
 });

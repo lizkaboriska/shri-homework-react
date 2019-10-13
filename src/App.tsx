@@ -3,8 +3,7 @@ import "./App.css";
 //import "../../git-http-api/html-layout/style.css"
 //import "./dropdown.css";
 import Layout from "./components/layout";
-import { connect } from 'react-redux';
-
+import { connect } from "react-redux";
 
 class App extends Component {
   // TODO когда приходит стейт для каждой страницы?
@@ -12,14 +11,14 @@ class App extends Component {
     return (
       <div className="theme theme_color_default">
         <div className="layout ">
-          <Layout/>
+          <Layout />
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   state: state
 });
 

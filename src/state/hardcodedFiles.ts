@@ -1,4 +1,4 @@
-const hardcodedFiles = [];
+const hardcodedFiles: any = [];
 //     {
 //         id: 1,
 //         name: "api",

@@ -4,7 +4,7 @@ import "./App.css";
 //import "./dropdown.css";
 import Layout from "./components/layout";
 import { connect } from "react-redux";
-import { StateInterface } from "./interfaces/stateInterface";
+import { State } from "./interfaces/stateInterface";
 
 class App extends Component {
   // TODO когда приходит стейт для каждой страницы?
@@ -19,7 +19,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state: StateInterface) => ({
+const mapStateToProps = (state: State) => ({
   state: state
 });
 

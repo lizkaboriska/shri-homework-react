@@ -1,9 +1,8 @@
 import initialState from "../state/initialState";
-import {StateInterface, Branch} from "../interfaces/stateInterface";
+import { State, BranchState } from "../interfaces/stateInterface";
 
-
-function reducer(state: StateInterface = initialState, action: any) {
-  let new_state: StateInterface;
+function reducer(state: State = initialState, action: any) {
+  let new_state: State;
   switch (action.type) {
     case "CHANGE_TO_FILES":
       new_state = { ...state };
@@ -52,9 +51,8 @@ function reducer(state: StateInterface = initialState, action: any) {
     case "SEARCH_BRANCHES":
       new_state = { ...state };
       let branches_pattern = action.content;
-      new_state.branches = state.all_branches.filter(
-        (object: Branch) =>
-          object.name.includes(branches_pattern)
+      new_state.branches = state.all_branches.filter((object: BranchState) =>
+        object.name.includes(branches_pattern)
       );
       return new_state;
     case "LAST_COMMIT_CHANGED":

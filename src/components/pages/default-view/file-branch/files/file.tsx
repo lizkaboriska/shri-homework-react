@@ -3,12 +3,33 @@ import { connect } from "react-redux";
 import { BACKEND_URI, refreshFilesList } from "../../../../../index";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
-import { StateInterface } from "../../../../../interfaces/stateInterface";
+import { State } from "../../../../../interfaces/stateInterface";
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo("en-US");
 
-class File extends Component<any> {
+interface Props {
+  file: PropsFile;
+  state: PropsState;
+  dispatch: any;
+}
+
+interface PropsFile {
+  type: string;
+  name: string;
+  message: string;
+  branch: string;
+  sha: string;
+  author: string;
+  date: string | Date;
+}
+
+interface PropsState {
+  repository: string;
+  cwd: string;
+}
+
+class File extends Component<Props, State> {
   open = () => {
     const filetype = this.props.file.type;
     const filename = this.props.file.name;
@@ -101,7 +122,7 @@ class File extends Component<any> {
     );
   }
 }
-const mapStateToProps = (state: StateInterface) => ({
+const mapStateToProps = (state: State) => ({
   state: state
 });
 export default connect(mapStateToProps)(File);

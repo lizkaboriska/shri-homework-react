@@ -1,12 +1,17 @@
 import React, { Component } from "react";
+import { State } from "../../../../interfaces/stateInterface";
 
-class CodeView extends Component<any> {
+interface Props {
+  lines: string[];
+}
+
+class CodeView extends Component<Props, State> {
   render() {
     let lines = this.props.lines;
 
     return (
       <>
-        {lines.map(function(line: any, index: any) {
+        {lines.map(function(line: string, index: number) {
           return (
             <div className="code-view__row" key={index}>
               <div className="code-view__cell code-view__count">{index}</div>

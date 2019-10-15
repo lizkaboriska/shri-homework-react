@@ -2,12 +2,19 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
-import { StateInterface } from "../../../interfaces/stateInterface";
+import { State } from "../../../interfaces/stateInterface";
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo("en-US");
 
-class LastCommitInfo extends Component<any> {
+interface Props {
+  date: string | Date;
+  message: string;
+  sha: string;
+  author: string;
+}
+
+class LastCommitInfo extends Component<Props, State> {
   getDate = () => {
     let time = new Date(this.props.date);
     return timeAgo.format(time);
@@ -37,7 +44,7 @@ class LastCommitInfo extends Component<any> {
     );
   }
 }
-const mapStateToProps = (state: StateInterface) => ({
+const mapStateToProps = (state: State) => ({
   sha: state.last_commit.sha,
   date: state.last_commit.date,
   author: state.last_commit.author,

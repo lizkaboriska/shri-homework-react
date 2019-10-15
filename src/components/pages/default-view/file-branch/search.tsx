@@ -1,8 +1,13 @@
 import React, { Component } from "react";
+import { State } from "../../../../interfaces/stateInterface";
 import { connect } from "react-redux";
-import { StateInterface } from "../../../../interfaces/stateInterface";
 
-class Search extends Component<any> {
+interface Props {
+  active_tab: string;
+  dispatch: any;
+}
+
+class Search extends Component<Props, State> {
   search = (event: any) => {
     const text = event.target.value;
     if (this.props.active_tab === "files") {
@@ -36,7 +41,7 @@ class Search extends Component<any> {
   }
 }
 
-const mapStateToProps = (state: StateInterface) => ({
+const mapStateToProps = (state: State) => ({
   active_tab: state.active_tab
 });
 export default connect(mapStateToProps)(Search);

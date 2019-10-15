@@ -3,9 +3,15 @@ import { connect } from "react-redux";
 
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { xcode } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { StateInterface } from "../../../../interfaces/stateInterface";
+import { State, FileDetailsState } from "../../../../interfaces/stateInterface";
 
-class Details extends Component<any> {
+interface Props {
+  dispatch: any;
+  active_tab: string;
+  file_details: FileDetailsState;
+}
+
+class Details extends Component<Props, State> {
   changeToHistory = () => {
     this.props.dispatch({ type: "CHANGE_TO_HISTORY" });
   };
@@ -74,7 +80,7 @@ import CodeView from "./code-view";
 </div>
  */
 
-const mapStateToProps = (state: StateInterface) => ({
+const mapStateToProps = (state: State) => ({
   active_tab: state.active_tab,
   file_details: state.file_details
 });

@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { StateInterface } from "../../../../interfaces/stateInterface";
+import { State } from "../../../../interfaces/stateInterface";
 
-class History extends Component<any> {
+interface Props {
+  dispatch: any;
+  active_tab: string;
+}
+
+class History extends Component<Props, State> {
   changeToDetails = () => {
     this.props.dispatch({ type: "CHANGE_TO_DETAILS" });
   };
@@ -229,7 +234,7 @@ class History extends Component<any> {
   }
 }
 
-const mapStateToProps = (state: StateInterface) => ({
+const mapStateToProps = (state: State) => ({
   active_tab: state.active_tab
 });
 

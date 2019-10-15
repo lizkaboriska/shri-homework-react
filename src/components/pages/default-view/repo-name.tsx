@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { StateInterface } from "../../../interfaces/stateInterface";
+import { State, BranchState } from "../../../interfaces/stateInterface";
 
 //TODO добавить время последнего изменения к веткам в дропе
+interface Props {
+  repo_name: string;
+  branches: BranchState[];
+}
 
-class RepoName extends Component<any> {
+class RepoName extends Component<Props, State> {
   render() {
     return (
       <div className="layout__container layout__container_indent-h_s">
@@ -22,7 +26,7 @@ class RepoName extends Component<any> {
                 <div className="trunk__path">Trunk</div>
                 <div></div>
               </div>
-              {this.props.branches.map((branch: any) => (
+              {this.props.branches.map((branch: BranchState) => (
                 <div key={branch.id} className="dropdown__item trunk__item">
                   <div className="trunk__path">{branch.name}</div>
                   <div className="trunk__time"></div>
@@ -35,7 +39,7 @@ class RepoName extends Component<any> {
     );
   }
 }
-const mapStateToProps = (state: StateInterface) => ({
+const mapStateToProps = (state: State) => ({
   branches: state.branches,
   repo_name: state.repository
 });

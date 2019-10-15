@@ -1,10 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { refreshFilesList } from "../../../index";
-import { StateInterface } from "../../../interfaces/stateInterface";
+import { State } from "../../../interfaces/stateInterface";
 
-class Crumbs extends Component<any> {
-  open = (breadcrumbs_idx: any) => {
+interface Props {
+  repository: string;
+  breadcrumbs: string[];
+  dispatch: any;
+}
+
+class Crumbs extends Component<Props, State> {
+  open = (breadcrumbs_idx: number) => {
     let dirpath = "";
     for (let idx = 0; idx <= breadcrumbs_idx; ++idx) {
       dirpath += this.props.breadcrumbs[idx];
@@ -33,7 +39,7 @@ class Crumbs extends Component<any> {
           <div onClick={this.openRoot} className="text text_line_m text_size_s">
             {this.props.repository}
           </div>
-          {this.props.breadcrumbs.map((crumb: any, idx: any) => (
+          {this.props.breadcrumbs.map((crumb: string, idx: number) => (
             <div
               onClick={() => {
                 this.open(idx);
@@ -51,7 +57,7 @@ class Crumbs extends Component<any> {
   }
 }
 
-const mapStateToProps = (state: StateInterface) => ({
+const mapStateToProps = (state: State) => ({
   repository: state.repository,
   breadcrumbs: state.breadcrumbs
 });

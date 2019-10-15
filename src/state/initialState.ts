@@ -1,8 +1,8 @@
 import hardcodedFiles from "./hardcodedFiles";
 import hardcodedBranches from "./hardcodedBranches";
-import { StateInterface } from "../interfaces/stateInterface";
+import { State } from "../interfaces/stateInterface";
 
-const initialState: StateInterface = {
+const initialState: State = {
   active_tab: "files",
   branches: hardcodedBranches,
   files: hardcodedFiles,
@@ -18,7 +18,10 @@ const initialState: StateInterface = {
     date: "2001/9/11",
     message: "DID NOT QUERY BACKEND YET"
   },
-  file_details: []
+  file_details: {
+    filename: "name",
+    lines: []
+  }
 };
 
 export default initialState;

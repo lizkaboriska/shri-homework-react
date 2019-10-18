@@ -6,6 +6,7 @@ import * as serviceWorker from "./serviceWorker";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import reducer from "./reducers/reducer";
+import { FileState } from "./interfaces/stateInterface";
 
 //TODO не заполнять стейт хардкодом пока страница грузится...
 const store = createStore(
@@ -58,60 +59,59 @@ export function refreshFilesList() {
           const filetype = files_arr[i].type;
 
           //console.log("Filename: ", filename, " is being traversed");
-          promises.push(
-            fetch(
-              `${BACKEND_URI}/api/repos/${store.getState().repository}/blob/${
-                store.getState().branch
-              }/${filepath}?skip_content=true`
-            )
-              .then(res => res.json())
-              .then(
-                fileinfo => {
-                  //console.log("Extended file information: ", fileinfo);
-                  const sha = fileinfo.last_sha;
+          const p = fetch(
+            `${BACKEND_URI}/api/repos/${store.getState().repository}/blob/${
+              store.getState().branch
+            }/${filepath}?skip_content=true`
+          )
+            .then(res => res.json())
+            .then(
+              fileinfo => {
+                //console.log("Extended file information: ", fileinfo);
+                const sha = fileinfo.last_sha;
 
-                  return fetch(
-                    `${BACKEND_URI}/api/repos/${
-                      store.getState().repository
-                    }/${sha}/?number=1`
-                  )
-                    .then(res => res.json())
-                    .then(
-                      result => {
-                        //console.log(result);
-                        return {
-                          author: result[0].author,
-                          date: result[0].date,
-                          message: result[0].message,
-                          sha: sha,
-                          id: i,
-                          name: filename,
-                          type: filetype
-                        };
-                      },
-                      // TODO написать нормальные ошибки
-                      error => {
-                        console.log(
-                          "Error occurred while retrieving last commit: ",
-                          error
-                        );
-                      }
-                    );
-                },
-                error => {
-                  console.log(
-                    "Error occurred while retrieving last commit: ",
-                    error
+                return fetch(
+                  `${BACKEND_URI}/api/repos/${
+                    store.getState().repository
+                  }/${sha}/?number=1`
+                )
+                  .then(res => res.json())
+                  .then(
+                    result => {
+                      //console.log(result);
+                      return {
+                        author: result[0].author as string,
+                        date: result[0].date as string,
+                        message: result[0].message as string,
+                        sha: sha as string,
+                        id: i,
+                        name: filename,
+                        type: filetype
+                      } as FileState;
+                    },
+                    // TODO написать нормальные ошибки
+                    error => {
+                      console.log(
+                        "Error occurred while retrieving last commit: ",
+                        error
+                      );
+                    }
                   );
-                }
-              )
-          );
+              },
+              error => {
+                console.log(
+                  "Error occurred while retrieving last commit: ",
+                  error
+                );
+              }
+            );
+          promises.push(p);
         }
 
         Promise.all(promises).then(values =>
           store.dispatch({
             type: "FILES_INFO_UPDATE",
-            content: values
+            content: values as FileState[]
           })
         );
       },

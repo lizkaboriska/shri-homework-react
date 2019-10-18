@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { refreshFilesList } from "../../../index";
 import { State } from "../../../interfaces/stateInterface";
+import { Action } from "../../../reducers/reducer";
 
 interface Props {
   repository: string;
   breadcrumbs: string[];
-  dispatch: any;
+  dispatch: (action: Action) => void;
 }
 
 class Crumbs extends Component<Props, State> {
@@ -28,7 +29,7 @@ class Crumbs extends Component<Props, State> {
   openRoot = () => {
     this.props.dispatch({
       type: "OPEN_DIRECTORY",
-      content: { dirpath: ".", breadcrumbs: [] }
+      content: { dirpath: "." }
     });
     refreshFilesList();
   };

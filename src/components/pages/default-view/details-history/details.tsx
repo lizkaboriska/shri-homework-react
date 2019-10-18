@@ -4,16 +4,17 @@ import { connect } from "react-redux";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { xcode } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { State, FileDetailsState } from "../../../../interfaces/stateInterface";
+import { Action } from "../../../../reducers/reducer";
 
 interface Props {
-  dispatch: any;
   active_tab: string;
+  dispatch: (action: Action) => void;
   file_details: FileDetailsState;
 }
 
 class Details extends Component<Props, State> {
   changeToHistory = () => {
-    this.props.dispatch({ type: "CHANGE_TO_HISTORY" });
+    this.props.dispatch({ type: "CHANGE_TO_HISTORY", content: "" });
   };
 
   render() {

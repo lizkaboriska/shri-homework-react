@@ -4,6 +4,7 @@ import { BACKEND_URI, refreshFilesList } from "../../../../../index";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import { State } from "../../../../../interfaces/stateInterface";
+import { Action } from "../../../../../reducers/reducer";
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo("en-US");
@@ -11,7 +12,7 @@ const timeAgo = new TimeAgo("en-US");
 interface Props {
   file: PropsFile;
   state: PropsState;
-  dispatch: any;
+  dispatch: (action: Action) => void;
 }
 
 interface PropsFile {

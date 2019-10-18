@@ -2,17 +2,18 @@ import React, { Component } from "react";
 import File from "./file";
 import { connect } from "react-redux";
 import { State, FileState } from "../../../../../interfaces/stateInterface";
+import { Action } from "../../../../../reducers/reducer";
 
 interface Props {
   active_tab: string;
   // ??
   files: FileState[];
-  dispatch: any;
+  dispatch: (action: Action) => void;
 }
 
 class FilesTable extends Component<Props, State> {
   changeToBranches = () => {
-    this.props.dispatch({ type: "CHANGE_TO_BRANCHES" });
+    this.props.dispatch({ type: "CHANGE_TO_BRANCHES", content: "" });
   };
   render() {
     if (this.props.active_tab === "files") {
@@ -40,7 +41,7 @@ class FilesTable extends Component<Props, State> {
                   <div className="list__item list__author">Committer</div>
                   <div className="list__item list__time">Updated</div>
                 </div>
-                {this.props.files.map((file: any) => (
+                {this.props.files.map((file: FileState) => (
                   <File key={file.id} file={file} />
                 ))}
               </div>

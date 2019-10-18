@@ -25,14 +25,15 @@ export interface LastCommit {
 export interface FileState {
   author: string;
   date: string;
-  id: string;
+  id: number;
   message: string;
   name: string;
   sha: string;
   type: string;
   committer: string;
-  updated: string;
+  updated: string | Date;
   commit_message: string;
+  branch: string;
 }
 
 export interface BranchState {

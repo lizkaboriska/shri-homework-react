@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { State } from "../../../../interfaces/stateInterface";
 import { connect } from "react-redux";
+import { Action } from "../../../../reducers/reducer";
 
 interface Props {
   active_tab: string;
-  dispatch: any;
+  dispatch: (action: Action) => void;
 }
 
 class Search extends Component<Props, State> {
-  search = (event: any) => {
+  search = (event: React.ChangeEvent<HTMLInputElement>) => {
     const text = event.target.value;
     if (this.props.active_tab === "files") {
       this.props.dispatch({ type: "SEARCH_FILES", content: text });

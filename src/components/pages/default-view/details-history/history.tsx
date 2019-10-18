@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { State } from "../../../../interfaces/stateInterface";
+import { Action } from "../../../../reducers/reducer";
 
 interface Props {
-  dispatch: any;
+  dispatch: (action: Action) => void;
   active_tab: string;
 }
 
 class History extends Component<Props, State> {
   changeToDetails = () => {
-    this.props.dispatch({ type: "CHANGE_TO_DETAILS" });
+    this.props.dispatch({ type: "CHANGE_TO_DETAILS", content: "" });
   };
   render() {
     if (this.props.active_tab === "history") {

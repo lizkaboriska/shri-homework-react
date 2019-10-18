@@ -2,16 +2,17 @@ import React, { Component } from "react";
 import Branch from "./branch";
 import { connect } from "react-redux";
 import { State, BranchState } from "../../../../../interfaces/stateInterface";
+import { Action } from "../../../../../reducers/reducer";
 
 interface Props {
   active_tab: string;
   branches: BranchState[];
-  dispatch: any;
+  dispatch: (action: Action) => void;
 }
 
 class BranchesTable extends Component<Props, State> {
   changeToFiles = () => {
-    this.props.dispatch({ type: "CHANGE_TO_FILES" });
+    this.props.dispatch({ type: "CHANGE_TO_FILES", content: "" });
   };
   render() {
     if (this.props.active_tab === "branches") {
@@ -37,7 +38,7 @@ class BranchesTable extends Component<Props, State> {
                     <div>Commit hash</div>
                   </div>
                 </div>
-                {this.props.branches.map((branch: any) => (
+                {this.props.branches.map((branch: BranchState) => (
                   <Branch key={branch.id} branch={branch} />
                 ))}
               </div>

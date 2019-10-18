@@ -1,8 +1,47 @@
 import initialState from "../state/initialState";
-import { State, BranchState } from "../interfaces/stateInterface";
+import {
+  State,
+  BranchState,
+  LastCommit,
+  FileDetailsState,
+  FileState
+} from "../interfaces/stateInterface";
 
-function reducer(state: State = initialState, action: any) {
+export interface Action {
+  type: string;
+  content:
+    | ActionContent
+    | FilesInfoForSecondUpdate
+    | LastCommit
+    | FileDetailsState
+    | BranchState[]
+    | FileState[]
+    | OpenDirectory
+    | string;
+}
+
+interface ActionContent {
+  filename: string;
+  dirpath: string;
+}
+
+interface FilesInfoForSecondUpdate {
+  id: number;
+  message: string;
+  name: string;
+  sha: string;
+  author: string;
+  date: string | Date;
+  updated: string | Date;
+}
+
+interface OpenDirectory {
+  dirpath: string;
+}
+
+function reducer(state: State = initialState, action: Action) {
   let new_state: State;
+  let content;
   switch (action.type) {
     case "CHANGE_TO_FILES":
       new_state = { ...state };
@@ -21,61 +60,68 @@ function reducer(state: State = initialState, action: any) {
       new_state.active_tab = "history";
       return new_state;
     case "OPEN_FILE":
-      return {
-        ...state,
-        file_details: action.content,
-        active_tab: "details",
-        breadcrumbs: [...state.breadcrumbs, action.content.filename]
-      };
+      new_state = { ...state };
+      content = action.content as FileDetailsState;
+      new_state.file_details = content;
+      new_state.active_tab = "details";
+      new_state.breadcrumbs = [
+        ...state.breadcrumbs,
+        content.filename as string
+      ];
+      return new_state;
     case "OPEN_DIRECTORY":
-      const new_cwd = action.content.dirpath;
+      new_state = { ...state };
+      content = action.content as OpenDirectory;
+      const new_cwd: string = content.dirpath;
 
-      console.log("ADD TO CRUMBS cwd: ", new_cwd);
       let crumbs = new_cwd.split("/").filter((crumb: string) => crumb !== ".");
-      console.log("crumbs_arr: ", crumbs);
 
-      return {
-        ...state,
-        cwd: new_cwd,
-        breadcrumbs: crumbs,
-        active_tab: "files"
-      };
+      new_state.cwd = new_cwd;
+      new_state.breadcrumbs = crumbs;
+      new_state.active_tab = "files";
+
+      return new_state;
     case "SEARCH_FILES":
       new_state = { ...state };
-      let files_pattern = action.content;
-      new_state.files = state.all_files.filter(
-        (object: { name: { includes: (arg0: any) => void } }) =>
-          object.name.includes(files_pattern)
+      let files_pattern = action.content as string;
+      new_state.files = state.all_files.filter((object: FileState) =>
+        object.name.includes(files_pattern)
       );
       return new_state;
     case "SEARCH_BRANCHES":
       new_state = { ...state };
-      let branches_pattern = action.content;
+      let branches_pattern = action.content as string;
       new_state.branches = state.all_branches.filter((object: BranchState) =>
         object.name.includes(branches_pattern)
       );
       return new_state;
     case "LAST_COMMIT_CHANGED":
-      return { ...state, last_commit: action.content };
+      new_state = { ...state, last_commit: action.content as LastCommit };
+      return new_state;
     case "FILES_INFO_UPDATE":
-      return { ...state, all_files: action.content, files: action.content };
+      new_state = { ...state };
+      content = action.content as FileState[];
+      new_state.all_files = content;
+      new_state.files = content;
+      return new_state;
     case "FILES_INFO_SECOND_UPDATE":
       new_state = state;
-      const id = action.content.id;
-      new_state.files[id].committer = action.content.author;
-      new_state.files[id].updated = action.content.date;
-      new_state.files[id].commit_message = action.content.message;
-      new_state.files[id].sha = action.content.sha;
+      content = action.content as FilesInfoForSecondUpdate;
+      const id = content.id;
+      new_state.files[id].committer = content.author;
+      new_state.files[id].updated = content.date;
+      new_state.files[id].commit_message = content.message;
+      new_state.files[id].sha = content.sha;
       return new_state;
     case "BRANCHES_INFO_UPDATE":
-      for (let i = 0; i < action.content.length; i++) {
-        action.content[i].id = i;
+      new_state = { ...state };
+      content = action.content as BranchState[];
+      for (let i = 0; i < content.length; i++) {
+        content[i].id = i;
       }
-      return {
-        ...state,
-        all_branches: action.content,
-        branches: action.content
-      };
+      new_state.all_branches = content;
+      new_state.branches = content;
+      return new_state;
     default:
       return state;
   }

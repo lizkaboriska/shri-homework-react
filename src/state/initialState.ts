@@ -1,11 +1,10 @@
-import hardcodedFiles from "./hardcodedFiles";
 import hardcodedBranches from "./hardcodedBranches";
 import { State } from "../interfaces/stateInterface";
 
 const initialState: State = {
   active_tab: "files",
   branches: hardcodedBranches,
-  files: hardcodedFiles,
+  files: [],
   cwd: ".",
   all_files: [],
   all_branches: [],
